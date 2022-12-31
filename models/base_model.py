@@ -2,6 +2,7 @@
 """working on basemodel"""
 import uuid
 from datetime import datetime
+format = '%Y-%m-%dT%H:%M:%S.%f'
 
 
 class BaseModel:
@@ -20,5 +21,9 @@ class BaseModel:
 
     def to_dic(self):
         """returns a dictionary."""
-
-        return self.__dict__
+        dic = dict()
+        dic.update(self.__dict__)
+        dic['__class__'] = self.__class__.__name__
+        dic['created_at'] = self.created_at.isoformat()
+        dic['updated_at'] = self.updated_at.isoformat()
+        return dic
